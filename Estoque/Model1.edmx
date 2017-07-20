@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="Model1TargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_PRO_PRODUTOSet" EntityType="Model1.TB_PRO_PRODUTO" />
+          <EntitySet Name="TB_GRP_GRUPO_PRODUTOSet" EntityType="Model1.TB_GRP_GRUPO_PRODUTO" />
+          <AssociationSet Name="TB_GRP_GRUPO_PRODUTOTB_PRO_PRODUTO" Association="Model1.TB_GRP_GRUPO_PRODUTOTB_PRO_PRODUTO">
+            <End Role="TB_GRP_GRUPO_PRODUTO" EntitySet="TB_GRP_GRUPO_PRODUTOSet" />
+            <End Role="TB_PRO_PRODUTO" EntitySet="TB_PRO_PRODUTOSet" />
+          </AssociationSet>
+          <EntitySet Name="TB_LOC_LOCALIZACAOSet" EntityType="Model1.TB_LOC_LOCALIZACAO" />
+          <EntitySet Name="TB_LAN_LANCAMENTOSSet" EntityType="Model1.TB_LAN_LANCAMENTOS" />
+          <AssociationSet Name="TB_PRO_PRODUTOTB_LAN_LANCAMENTOS" Association="Model1.TB_PRO_PRODUTOTB_LAN_LANCAMENTOS">
+            <End Role="TB_PRO_PRODUTO" EntitySet="TB_PRO_PRODUTOSet" />
+            <End Role="TB_LAN_LANCAMENTOS" EntitySet="TB_LAN_LANCAMENTOSSet" />
+          </AssociationSet>
+          <EntitySet Name="TB_USU_USUARIOSSet" EntityType="Model1.TB_USU_USUARIOS" />
+          <AssociationSet Name="TB_USU_USUARIOSTB_LAN_LANCAMENTOS" Association="Model1.TB_USU_USUARIOSTB_LAN_LANCAMENTOS">
+            <End Role="TB_USU_USUARIOS" EntitySet="TB_USU_USUARIOSSet" />
+            <End Role="TB_LAN_LANCAMENTOS" EntitySet="TB_LAN_LANCAMENTOSSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TB_PRO_PRODUTO">
+          <Key>
+            <PropertyRef Name="PRO_ID_PRODUTO" />
+          </Key>
+          <Property Name="PRO_ID_PRODUTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRO_NM_PRODUTO" Type="String" Nullable="false" />
+          <NavigationProperty Name="TB_GRP_GRUPO_PRODUTO" Relationship="Model1.TB_GRP_GRUPO_PRODUTOTB_PRO_PRODUTO" FromRole="TB_PRO_PRODUTO" ToRole="TB_GRP_GRUPO_PRODUTO" />
+          <NavigationProperty Name="TB_LAN_LANCAMENTOS" Relationship="Model1.TB_PRO_PRODUTOTB_LAN_LANCAMENTOS" FromRole="TB_PRO_PRODUTO" ToRole="TB_LAN_LANCAMENTOS" />
+        </EntityType>
+        <EntityType Name="TB_GRP_GRUPO_PRODUTO">
+          <Key>
+            <PropertyRef Name="GRP_ID_GRUPO_PRODUTO" />
+          </Key>
+          <Property Name="GRP_ID_GRUPO_PRODUTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GRP_NM_GRUPO_PRODUTO" Type="String" Nullable="false" />
+          <NavigationProperty Name="TB_PRO_PRODUTO" Relationship="Model1.TB_GRP_GRUPO_PRODUTOTB_PRO_PRODUTO" FromRole="TB_GRP_GRUPO_PRODUTO" ToRole="TB_PRO_PRODUTO" />
+        </EntityType>
+        <Association Name="TB_GRP_GRUPO_PRODUTOTB_PRO_PRODUTO">
+          <End Type="Model1.TB_GRP_GRUPO_PRODUTO" Role="TB_GRP_GRUPO_PRODUTO" Multiplicity="1" />
+          <End Type="Model1.TB_PRO_PRODUTO" Role="TB_PRO_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_GRP_GRUPO_PRODUTO">
+              <PropertyRef Name="GRP_ID_GRUPO_PRODUTO" />
+            </Principal>
+            <Dependent Role="TB_PRO_PRODUTO">
+              <PropertyRef Name="PRO_ID_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TB_LOC_LOCALIZACAO">
+          <Key>
+            <PropertyRef Name="LOC_ID_LOCALIZACAO" />
+          </Key>
+          <Property Name="LOC_ID_LOCALIZACAO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TB_LAN_LANCAMENTOS">
+          <Key>
+            <PropertyRef Name="LAN_ID_LANCAMENTOS" />
+          </Key>
+          <Property Name="LAN_ID_LANCAMENTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TB_PRO_PRODUTO" Relationship="Model1.TB_PRO_PRODUTOTB_LAN_LANCAMENTOS" FromRole="TB_LAN_LANCAMENTOS" ToRole="TB_PRO_PRODUTO" />
+          <Property Name="LAN_QTD_PRODUTOS" Type="Int64" Nullable="false" />
+          <Property Name="LAN_DH_LANCAMENTO" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="TB_USU_USUARIOS" Relationship="Model1.TB_USU_USUARIOSTB_LAN_LANCAMENTOS" FromRole="TB_LAN_LANCAMENTOS" ToRole="TB_USU_USUARIOS" />
+        </EntityType>
+        <Association Name="TB_PRO_PRODUTOTB_LAN_LANCAMENTOS">
+          <End Type="Model1.TB_PRO_PRODUTO" Role="TB_PRO_PRODUTO" Multiplicity="1" />
+          <End Type="Model1.TB_LAN_LANCAMENTOS" Role="TB_LAN_LANCAMENTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_LAN_LANCAMENTOS">
+              <PropertyRef Name="LAN_ID_LANCAMENTOS" />
+            </Principal>
+            <Dependent Role="TB_PRO_PRODUTO">
+              <PropertyRef Name="PRO_ID_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TB_USU_USUARIOS">
+          <Key>
+            <PropertyRef Name="USU_ID_USUARIO" />
+          </Key>
+          <Property Name="USU_ID_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TB_LAN_LANCAMENTOS" Relationship="Model1.TB_USU_USUARIOSTB_LAN_LANCAMENTOS" FromRole="TB_USU_USUARIOS" ToRole="TB_LAN_LANCAMENTOS" />
+        </EntityType>
+        <Association Name="TB_USU_USUARIOSTB_LAN_LANCAMENTOS">
+          <End Type="Model1.TB_USU_USUARIOS" Role="TB_USU_USUARIOS" Multiplicity="1" />
+          <End Type="Model1.TB_LAN_LANCAMENTOS" Role="TB_LAN_LANCAMENTOS" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

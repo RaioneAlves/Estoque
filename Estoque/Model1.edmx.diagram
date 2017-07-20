@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="75ab194ef71e470a9c4f82034f5b764c" Name="Diagram1" ZoomLevel="64" >
+        <EntityTypeShape EntityType="Model1.TB_PRO_PRODUTO" Width="2.75" PointX="4.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.TB_GRP_GRUPO_PRODUTO" Width="2.5" PointX="8.75" PointY="1.125" />
+        <AssociationConnector Association="Model1.TB_GRP_GRUPO_PRODUTOTB_PRO_PRODUTO" />
+        <EntityTypeShape EntityType="Model1.TB_LOC_LOCALIZACAO" Width="2.5" PointX="0.5" PointY="0.625" />
+        <EntityTypeShape EntityType="Model1.TB_LAN_LANCAMENTOS" Width="2.625" PointX="4.875" PointY="3.75" />
+        <AssociationConnector Association="Model1.TB_PRO_PRODUTOTB_LAN_LANCAMENTOS" />
+        <EntityTypeShape EntityType="Model1.TB_USU_USUARIOS" Width="2.375" PointX="0.875" PointY="3.25" />
+        <AssociationConnector Association="Model1.TB_USU_USUARIOSTB_LAN_LANCAMENTOS" />
+        <EntityTypeShape EntityType="Model1.TB_TPL_TIPO_LANCAMENTO" Width="2.625" PointX="8.375" PointY="6.125" />
+        <AssociationConnector Association="Model1.TB_TPL_TIPO_LANCAMENTOTB_LAN_LANCAMENTOS" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
